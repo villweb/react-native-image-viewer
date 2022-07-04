@@ -60,6 +60,11 @@ export default class ImageViewer extends React.Component<Props, State> {
   }
 
   public componentDidUpdate(prevProps: Props, prevState: State) {
+    // 当图片数组更新时重新初始化
+    if (prevProps.imageUrls !== this.props.imageUrls) {
+      this.loadedIndex = new Map();
+      this.init(this.props);
+    }
     if (prevProps.index !== this.props.index) {
       // 立刻预加载要看的图
       this.loadImage(this.props.index || 0);
